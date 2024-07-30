@@ -20,12 +20,12 @@ if (isset($_POST['filter'])) {
     $dari_tgl = $_POST['dari_tgl'];
     $sampai_tgl = $_POST['sampai_tgl'];
 
-    $query = "SELECT ID, Suhu, Ph_tanah, Tinggi, Tanggal, status 
+    $query = "SELECT ID, Suhu, kelembapan_udara, Ph_tanah, Tinggi, Tanggal, status 
               FROM sensor 
               WHERE tanggal BETWEEN '$dari_tgl' AND '$sampai_tgl'";
     $data_report = mysqli_query($konek, $query);
 } else {
-    $query = "SELECT ID, Suhu, Ph_tanah, Tinggi, Tanggal, status  
+    $query = "SELECT ID, Suhu, kelembapan_udara, Ph_tanah, Tinggi, Tanggal, status  
               FROM sensor";
     $data_report = mysqli_query($konek, $query);
 }
@@ -209,8 +209,9 @@ if (isset($_POST['filter'])) {
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Suhu</th>
-                                            <th>Ph Tanah</th>
+                                            <th>Suhu Udara</th>
+                                            <th>Kelembapan Udara</th>
+                                            <th>Kelembapan Tanah</th>
                                             <th>Tinggi Air</th>
                                             <th>Tanggal</th>
                                             <th>status</th>
@@ -221,6 +222,7 @@ if (isset($_POST['filter'])) {
                                             <tr>
                                                 <td><?php echo $row['ID']; ?></td>
                                                 <td><?php echo $row['Suhu']; ?></td>
+                                                <td><?php echo $row['kelembapan_udara']; ?></td>
                                                 <td><?php echo $row['Ph_tanah']; ?></td>
                                                 <td><?php echo $row['Tinggi']; ?></td>
                                                 <td><?php echo $row['Tanggal']; ?></td>
