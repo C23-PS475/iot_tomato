@@ -4,6 +4,7 @@ $sql = mysqli_query($konek, "SELECT * FROM sensor ORDER BY id DESC LIMIT 1");
 $data = mysqli_fetch_array($sql);
 $suhu = $data["Suhu"];   
 $ph = $data["Ph_tanah"];
+$phtanah = $data["phtanah2"];
 $kelembapan_udara = $data["kelembapan_udara"];
 $tinggi = $data["Tinggi"];
 $status = $data["status"];
@@ -18,6 +19,7 @@ if ($status == 1) {
 echo '<span id="suhu">' . $suhu . '</span>';
 echo '<span id="kelembapan">' . $kelembapan_udara . '</span>';
 echo '<span id="phtanah">' . $ph . '</span>';
+echo '<span id="phtanahbaru">' . $phtanah . '</span>';
 echo '<span id="tinggi">' . $tinggi . '</span>';
 echo '<span id="status">' . $statusText . '</span>';
 ?>

@@ -204,10 +204,12 @@ $(document).ready(function() {
         $("#dlText").load('ceksensor.php #suhu');
         $("#wlText").load('ceksensor.php #kelembapan');
         $("#ulText").load('ceksensor.php #phtanah');
+        $("#plText").load('ceksensor.php #phtanahbaru');       
         $("#pingText").load('ceksensor.php #tinggi');
         $("#grafik").load('data.php');
         $("#grafik2").load('data2.php');
         $("#grafik3").load('data3.php');
+        $("#grafik4").load('data4.php');
         $("#status").load('ceksensor.php #status', function(responseText) {
             var statusBadge = $(responseText).find('.status-badge').text().trim(); // Ekstrak teks dari elemen dengan kelas status-badge
 
@@ -230,12 +232,14 @@ $(document).ready(function() {
     var meterBk="#E0E0E0";
     var dlColor="#008080",
         wlColor="#FF8C00",
+        plColor="#ADFF2F",
         ulColor="#800080",
         pingColor = "#AA6060"
     var progColor="#EEEEEE";
     var parameters={ //custom test parameters. See doc.md for a complete list
         time_dl: 10, //download test lasts 10 seconds
         time_wl: 10,
+        time_pl: 10,
         time_ul: 10, //upload test lasts 10 seconds
         count_ping: 50, //ping+jitter test does 20 pings
         getIp_ispInfo: false //will only get IP address without ISP info
@@ -279,6 +283,7 @@ function updateUI(forced) {
     // Ambil nilai dlText dari elemen #dlText
     var dlTextValue = parseFloat($('#dlText').text());
     var wlTextValue = parseFloat($('#wlText').text());
+    var plTextValue = parseFloat($('#plText').text());
     var ulTextValue = parseFloat($('#ulText').text());
     var pingTextValue = parseFloat($('#pingText').text());
 
@@ -295,6 +300,13 @@ function updateUI(forced) {
         wlMeterColor = wlColor;
     }else {
         wlMeterColor = progColor;
+    }
+
+    var plMeterColor;
+    if (plTextValue >= 0 && plTextValue <= 100) {
+        plMeterColor = plColor;
+    }else {
+        plMeterColor = progColor;
     }
 
     var ulMeterColor;
@@ -315,6 +327,7 @@ function updateUI(forced) {
     // Update teks dlText
     $('#dlText').text(dlTextValue);
     $('#wlText').text(wlTextValue);
+    $('#plText').text(plTextValue);
     $('#ulText').text(ulTextValue); 
     $('#pingText').text(pingTextValue);
 
@@ -322,6 +335,7 @@ function updateUI(forced) {
     // Menggambar meter dengan warna yang sesuai
     drawMeter(I("dlMeter"), dlTextValue, 100, meterBk, dlMeterColor);
     drawMeter(I("wlMeter"), wlTextValue, 100, meterBk, wlMeterColor);
+    drawMeter(I("plMeter"), plTextValue, 100, meterBk, plMeterColor);
     drawMeter(I("ulMeter"), ulTextValue, 100, meterBk, ulMeterColor);
     drawMeter(I("pingMeter"), pingTextValue, 100, meterBk, pingMeterColor);
 }
@@ -479,6 +493,14 @@ function updateUI(forced) {
                                             <h5><div class= "nilai2">100</div><h5>
                                         </div>
                                         <div class="testArea">
+                                            <div class="testName3">Ph tanah</div>
+                                            <canvas id="plMeter" class="meter"></canvas>
+                                            <div id="plText" class="meterText"></div>
+                                            <h4><div class="unit2">ph</div></h4>
+                                            <h5><div class="nilai">0</div></h5>
+                                            <h5><div class= "nilai2">100</div><h5>
+                                        </div>
+                                        <div class="testArea">
                                             <div class="testName">Kelembapan Tanah</div>
                                             <canvas id="ulMeter" class="meter"></canvas>
                                             <div id="ulText" class="meterText"></div>
@@ -561,6 +583,22 @@ function updateUI(forced) {
                                 <!-- Card Body -->
                                 <div class="card-body">
                                     <div id="grafik3">
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-6 col-lg-2">
+                            <div class="card shadow mb-3">
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h5 class="m-0 font-weight-bold" style="color: #D2691E;">Grafik Pestisida</h5>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div id="grafik4">
                                     </div>
                                     
                                 </div>
